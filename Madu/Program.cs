@@ -13,9 +13,9 @@ namespace Madu
             Console.SetWindowSize(79, 25);
             Console.SetBufferSize(80, 25);
 
-            //Console.OutputEncoding = System.Text.Encoding.UTF8;
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-            
+
 
             HorizontalLine Line1 = new HorizontalLine(1,  78 , 1, "+");
             HorizontalLine Line2 = new HorizontalLine(1, 78, 24, "+");
@@ -28,11 +28,21 @@ namespace Madu
 
             
 
-            Point p = new Point(5, 10, "*");
-            Snake snake = new Snake(p, 10, Directions.RIGHT);
+            Point p = new Point(22, 22, "~( 3:>");
+            Snake snake = new Snake(p, 4, Directions.RIGHT);
             snake.Draw();
 
-            Console.ReadLine();
+            while (true)
+            {
+                if (Console.KeyAvailable)
+                {
+                    ConsoleKeyInfo key = Console.ReadKey();
+                    snake.HandleKey(key.Key);
+                }
+                Thread.Sleep(100);
+                snake.Move();
+            }
+
 
         }
 

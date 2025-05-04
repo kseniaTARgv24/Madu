@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Madu
 {
-    internal class Figure
+    class Figure
     {
         protected List<Point> plist;
 
