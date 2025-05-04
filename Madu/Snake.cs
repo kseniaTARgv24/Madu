@@ -38,6 +38,21 @@ namespace Madu
             //throw new NotImplementedException();
         }
 
+        internal bool Eat (Point food)
+        {
+            Point head = GetNextPoint();
+            if (head.IsHit (food))
+            {
+                food.sym = head.sym;
+                plist.Add(food);
+              return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public Point GetNextPoint()
         {
             Point head = plist.Last();
