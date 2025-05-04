@@ -10,13 +10,12 @@ namespace Madu
     {
         static void Main(string[] args) {
 
-            Console.OutputEncoding = System.Text.Encoding.UTF8;
-
+            //Console.OutputEncoding = System.Text.Encoding.UTF8;
 
             Point p1 = new Point(1, 2, "v");
             Point p2 = new Point(2, 3, "b");
 
-            HorizontalLine Line = new HorizontalLine(2, 10 , 5, "🐀");
+            HorizontalLine Line = new HorizontalLine(2,  20 , 5, "0");
             Line.Draw();
 
         }
