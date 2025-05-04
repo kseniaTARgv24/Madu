@@ -20,6 +20,32 @@ namespace Madu
 
         }
 
+        public Point(Point p)
+        {
+            x= p.x;
+            y= p.y;
+            sym = p.sym;
+        }
+
+        public void Move(int offset, Directions direction)
+        {
+            if (direction == Directions.RIGHT)
+            {
+                x += offset;
+            }
+            else if (direction == Directions.LEFT)
+            {
+                x -= offset;
+            }
+            else if (direction == Directions.UP)
+            {
+                y -= offset;
+            }
+            else if (direction == Directions.DOWN)
+            {
+                y += offset;
+            }
+        }
         public void Draw()
         {
             Console.SetCursorPosition(x, y);
