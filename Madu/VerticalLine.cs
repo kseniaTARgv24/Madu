@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace Madu
 {
-     class HorizontalLine : Figure
+    internal class VerticalLine : Figure
     {
-        public HorizontalLine(int xLeft, int xRight, int y, string sym)
+        public VerticalLine(int yUp, int yDown, int x, string sym)
         {
             plist = new List<Point>();
-            for (int x = xLeft; x <= xRight; x++)
+            for (int y = yUp; y <= yDown; y++)
             {
                 Point p = new Point(x, y, sym);
                 plist.Add(p);
