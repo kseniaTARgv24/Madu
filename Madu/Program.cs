@@ -16,15 +16,8 @@ namespace Madu
             Console.OutputEncoding = System.Text.Encoding.UTF8;
 
 
-
-            HorizontalLine Line1 = new HorizontalLine(1,  78 , 1, "+");
-            HorizontalLine Line2 = new HorizontalLine(1, 78, 24, "+");
-            VerticalLine Line3 = new VerticalLine(1, 24, 1, "+");
-            VerticalLine Line4 = new VerticalLine(1, 24, 78, "+");
-            Line1.Draw();
-            Line2.Draw();
-            Line3.Draw();
-            Line4.Draw();
+            Walls walls = new Walls(80, 25);
+            walls.Draw();
 
             
 
@@ -38,6 +31,12 @@ namespace Madu
 
             while (true)
             {
+                if (walls.IsHit(snake) || snake.IsHitTail())
+                {
+                    break;
+                }
+
+
                 if (snake.Eat(food))
                 {
                     food = foodCreator.CreateFood();

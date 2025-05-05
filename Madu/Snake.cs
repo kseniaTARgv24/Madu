@@ -77,5 +77,18 @@ namespace Madu
         {
             base.Draw();
         }
+
+        internal bool IsHitTail()
+        {
+            var head = plist.Last();
+            for (int i = 0; i < plist.Count; i++)
+            {
+                if (head.IsHit(plist[i]))
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
     }
 }
