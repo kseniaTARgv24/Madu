@@ -10,7 +10,12 @@ namespace Madu
     {
         static void Main(string[] args)
         {
-            //Console.SetWindowSize(79, 25);
+
+            Menu menu = new Menu();
+            menu.ShowOptions();
+            Console.ReadLine();
+
+            Console.SetWindowSize(80 ,25);
             Console.SetBufferSize(80, 25);
 
             Console.OutputEncoding = System.Text.Encoding.UTF8;
