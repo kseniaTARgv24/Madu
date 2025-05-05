@@ -32,7 +32,7 @@ namespace Madu
             Snake snake = new Snake(p, 4, Directions.RIGHT);
             snake.Draw();
 
-            FoodCreator foodCreator = new FoodCreator(80, 25, "$");
+            FoodCreator foodCreator = new FoodCreator(30, 30, "К");
             Point food = foodCreator.CreateFood();
             food.Draw();
 
@@ -54,7 +54,7 @@ namespace Madu
                     ConsoleKeyInfo key = Console.ReadKey();
                     snake.HandleKey(key.Key);
                 }
-                Thread.Sleep(100);
+                Thread.Sleep(300);
                 snake.Move();
             }
 

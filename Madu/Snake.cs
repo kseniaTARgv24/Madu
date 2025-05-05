@@ -73,6 +73,9 @@ namespace Madu
                 direction = Directions.UP;
         }
 
-
+        public override void Draw()
+        {
+            base.Draw();
+        }
     }
 }

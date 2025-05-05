@@ -17,5 +17,17 @@ namespace Madu
                 plist.Add(p);
             }
         }
+
+        public override void Draw()
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+
+            foreach (Point p in plist)
+            {
+                p.Draw();
+            }
+
+            //Console.ForegroundColor = ConsoleColor.Red;
+        }
     }
 }

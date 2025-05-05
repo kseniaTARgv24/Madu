@@ -10,8 +10,10 @@ namespace Madu
     {
         protected List<Point> plist;
 
-        public void Draw()
+        public virtual void Draw()
         {
+            Console.ForegroundColor = ConsoleColor.White;
+
             foreach (Point p in plist)
             {
                 p.Draw();

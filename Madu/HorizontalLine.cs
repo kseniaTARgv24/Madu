@@ -17,6 +17,20 @@ namespace Madu
                 Point p = new Point(x, y, sym);
                 plist.Add(p);
             }
+
         }
+
+        public override void Draw()
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+
+            foreach (Point p in plist)
+            {
+                p.Draw();
+            }
+
+            Console.ForegroundColor= ConsoleColor.Red;
+        }
+
     }
 }
