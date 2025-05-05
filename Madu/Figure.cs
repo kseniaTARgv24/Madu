@@ -28,8 +28,9 @@ namespace Madu
                 {
                     return true;
                 }
-                return false;
             }
+            return false;
+            
         }
 
         private bool IsHit(Point point)
@@ -37,8 +38,9 @@ namespace Madu
             foreach (var p in plist)
             {
                 if (p.IsHit(point)) { return true; }
-                return false;
             }
+            return false;
+            
         }
 
     }

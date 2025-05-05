@@ -10,7 +10,7 @@ namespace Madu
     {
         static void Main(string[] args)
         {
-            Console.SetWindowSize(79, 25);
+            //Console.SetWindowSize(79, 25);
             Console.SetBufferSize(80, 25);
 
             Console.OutputEncoding = System.Text.Encoding.UTF8;
@@ -19,24 +19,20 @@ namespace Madu
             Walls walls = new Walls(80, 25);
             walls.Draw();
 
-            
-
-            Point p = new Point(22, 22, "*");
+            Point p = new Point(4,5, "*");
             Snake snake = new Snake(p, 4, Directions.RIGHT);
             snake.Draw();
 
-            FoodCreator foodCreator = new FoodCreator(30, 30, "К");
+            FoodCreator foodCreator = new FoodCreator(80 ,25, "К");
             Point food = foodCreator.CreateFood();
             food.Draw();
 
             while (true)
             {
-                if (walls.IsHit(snake) || snake.IsHitTail())
+                if (walls.IsHit(snake)  || snake.IsHitTail()) 
                 {
                     break;
                 }
-
-
                 if (snake.Eat(food))
                 {
                     food = foodCreator.CreateFood();
@@ -47,18 +43,17 @@ namespace Madu
                     snake.Move();
                 }
 
+                Thread.Sleep(100);
 
                 if (Console.KeyAvailable)
                 {
                     ConsoleKeyInfo key = Console.ReadKey();
                     snake.HandleKey(key.Key);
                 }
-                Thread.Sleep(300);
-                snake.Move();
             }
 
 
-        }
+            }
 
     }
 
