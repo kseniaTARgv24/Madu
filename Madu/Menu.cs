@@ -13,13 +13,13 @@ namespace Madu
         public void ShowOptions()
         {
             int choice = Keyboard.ChooseOption("Main Menu", menu_options);
-            //switch (choice)
-            //{
-            //    case 0: StartGame(); break;
-            //    case 1: OpenSettings(); break;
-            //    case 2: Score(); break;
-                    //case 3: Exit(); break;
-                //}
+            switch (choice)
+            {
+                case 0: break;
+                case 1: Settings.OpenSettings(); break;
+                //case 2: Score(); break;
+                //case 3: Exit(); break;
             }
+        }
     }
 }

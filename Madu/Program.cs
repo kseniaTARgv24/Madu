@@ -13,7 +13,7 @@ namespace Madu
 
             Menu menu = new Menu();
             menu.ShowOptions();
-            Console.ReadLine();
+            Console.Clear();
 
             Console.SetWindowSize(80 ,25);
             Console.SetBufferSize(80, 25);
