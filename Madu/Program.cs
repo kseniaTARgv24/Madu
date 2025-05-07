@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace Madu
 {
@@ -11,8 +13,14 @@ namespace Madu
         static void Main(string[] args)
         {
 
+
             Menu menu = new Menu();
             menu.ShowOptions();
+            List<int> a = menu.ShowOptions();
+            bool DM = Menu.GetDrunkMode(a);
+            int Sp = Menu.GetSpeed(a);
+            string Sy = Menu.GetSymbol(a);
+            int So = Menu.GetSoundVolume(a);
             Console.Clear();
 
             Console.SetWindowSize(80 ,25);
@@ -24,7 +32,7 @@ namespace Madu
             Walls walls = new Walls(80, 25);
             walls.Draw();
 
-            Point p = new Point(4,5, "*");
+            Point p = new Point(4,5, Sy);
             Snake snake = new Snake(p, 4, Directions.RIGHT);
             snake.Draw();
 
@@ -48,7 +56,7 @@ namespace Madu
                     snake.Move();
                 }
 
-                Thread.Sleep(100);
+                Thread.Sleep(300);
 
                 if (Console.KeyAvailable)
                 {

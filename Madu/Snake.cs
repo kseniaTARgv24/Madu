@@ -12,6 +12,7 @@ namespace Madu
 
         public Directions direction;
 
+
         public Snake(Point tail, int lenght, Directions _direction)
         {
 

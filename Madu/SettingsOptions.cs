@@ -14,6 +14,8 @@ namespace Madu
         public static string[] Symbol = { "*", "#", "@", "&" };
         public static int[] SoundVolume = Enumerable.Range(0, 101).ToArray();
 
+        public static int[] DEFAULT = { 1, 2, 0, 100 };
+
 
     }
 }
