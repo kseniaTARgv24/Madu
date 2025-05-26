@@ -9,20 +9,35 @@ namespace Madu
     class Menu
     {
         private static string[] menu_options = { "START" , "SETTINGS", "SCORE", "EXIT"};
-        
+
         public List<int> ShowOptions()
         {
-            int choice = Keyboard.ChooseOption("Main Menu", menu_options);
-            switch (choice)
+            while (true)
             {
-                case 0: return SettingsOptions.DEFAULT.ToList();
-                case 1: return Keyboard.ChooseOptionSettings("SETTINGS");
-                case 2: Score(); return SettingsOptions.DEFAULT.ToList();
-                //case 3: Exit(); break;
-                default:
-                 return SettingsOptions.DEFAULT.ToList(); 
+                int choice = Keyboard.ChooseOption("Main Menu", menu_options);
+                switch (choice)
+                {
+                    case 0:
+                        return SettingsOptions.DEFAULT.ToList();
+
+                    case 1: 
+                        return Keyboard.ChooseOptionSettings("SETTINGS");
+
+                    case 2: 
+                        Score();
+                        break;
+
+                    case 3: 
+                        Environment.Exit(0);
+                        break;
+
+                    default:
+                        Console.WriteLine("error");
+                        break;
+                }
             }
         }
+
         public static bool GetDrunkMode(List<int> choises)      
         {
             return SettingsOptions.DrunkMode[choises[0]];
@@ -47,11 +62,12 @@ namespace Madu
         {
             Console.Clear();
             string path = "scores.txt";
+            //Console.WriteLine(Path.GetFullPath(path));////////////
 
             if (File.Exists(path))
             {
                 string[] lines = File.ReadAllLines(path);
-                Console.WriteLine("Таблица рекордов:\n");
+                Console.WriteLine("Scores:\n");
 
                 foreach (string line in lines)
                 {
@@ -60,10 +76,10 @@ namespace Madu
             }
             else
             {
-                Console.WriteLine("Файл с рекордами пока не создан.");
+                Console.WriteLine("file made");
             }
 
-            Console.WriteLine("\nНажмите любую клавишу для возврата в меню...");
+            Console.WriteLine("\nPress any key...");
             Console.ReadKey();
         }
 

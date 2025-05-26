@@ -14,17 +14,23 @@ namespace Madu
         static void Main(string[] args)
         {
             List<Figure> extraWalls = new List<Figure>();
+            int So = 100;
+            Sounds sounds = new Sounds(So);
+            sounds.PlayMusicLoop();
 
-
-            while (true) // главный цикл программы - меню и игра
+            while (true) 
             {
+
+
                 Menu menu = new Menu();
                 List<int> a = menu.ShowOptions();
                 bool DM = Menu.GetDrunkMode(a);
                 int Sp = Menu.GetSpeed(a);
                 string Sy = Menu.GetSymbol(a);
-                int So = Menu.GetSoundVolume(a);
+                So = Menu.GetSoundVolume(a);
+                sounds.SetVolume(So / 100f);
                 Console.Clear();
+
 
                 Console.Write("Name: ");
                 string Name = Console.ReadLine();
@@ -51,6 +57,7 @@ namespace Madu
                 {
                     if (walls.IsHit(snake) || snake.IsHitTail())
                     {
+                        sounds.StopMusic();
                         isGameOver = true;
                         continue;
                     }
@@ -72,6 +79,7 @@ namespace Madu
                     if (snake.Eat(food))
                     {
                         score++;
+                        sounds.PlayEat();
                         if (score % 3 == 0)
                         {
                             // wall!
@@ -97,7 +105,7 @@ namespace Madu
                     }
 
                     Console.SetCursorPosition(0, 0);
-                    Console.Write($"Player: {Name} | Score: {score}     ");
+                    Console.Write($"Player: {Name} | Score: {score} | Drunk Mode: {DM} ");
 
                     Thread.Sleep(Sp);
 
@@ -109,16 +117,18 @@ namespace Madu
                     }
                 }
 
+                sounds.StopMusic();
+                sounds.PlayDie();
                 Console.Clear();
                 Console.SetCursorPosition(30, 10);
                 Console.WriteLine("DEAD. Your score: " + score);
 
                 string path = "scores.txt";
-                //Console.WriteLine( Path.GetFullPath(path));////////////
+                
 
                 using (StreamWriter writer = new StreamWriter(path, true))
                 {
-                    writer.WriteLine(Name + " - " + score);
+                    writer.WriteLine(Name + " - " + score+ "  Drunk Mode: "+ DM);
                 }
 
                 Console.WriteLine("\n                          Press any key");

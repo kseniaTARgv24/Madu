@@ -133,6 +133,8 @@ namespace Madu
                         Sp = param[1];
                         Sy = param[2];
                         So = param[3];
+                        
+
                         break;
                     case ConsoleKey.RightArrow:
                         if (param[selectedIndex] < optionslist[selectedIndex]-1)
