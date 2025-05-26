@@ -5,6 +5,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace Madu
 {
@@ -12,62 +13,120 @@ namespace Madu
     {
         static void Main(string[] args)
         {
+            List<Figure> extraWalls = new List<Figure>();
 
 
-            Menu menu = new Menu();
-            menu.ShowOptions();
-            List<int> a = menu.ShowOptions();
-            bool DM = Menu.GetDrunkMode(a);
-            int Sp = Menu.GetSpeed(a);
-            string Sy = Menu.GetSymbol(a);
-            int So = Menu.GetSoundVolume(a);
-            Console.Clear();
-
-            Console.SetWindowSize(80 ,25);
-            Console.SetBufferSize(80, 25);
-
-            Console.OutputEncoding = System.Text.Encoding.UTF8;
-
-
-            Walls walls = new Walls(80, 25);
-            walls.Draw();
-
-            Point p = new Point(4,5, Sy);
-            Snake snake = new Snake(p, 4, Directions.RIGHT);
-            snake.Draw();
-
-            FoodCreator foodCreator = new FoodCreator(80 ,25, "К");
-            Point food = foodCreator.CreateFood();
-            food.Draw();
-
-            while (true)
+            while (true) // главный цикл программы - меню и игра
             {
-                if (walls.IsHit(snake)  || snake.IsHitTail()) 
+                Menu menu = new Menu();
+                List<int> a = menu.ShowOptions();
+                bool DM = Menu.GetDrunkMode(a);
+                int Sp = Menu.GetSpeed(a);
+                string Sy = Menu.GetSymbol(a);
+                int So = Menu.GetSoundVolume(a);
+                Console.Clear();
+
+                Console.Write("Name: ");
+                string Name = Console.ReadLine();
+                int score = 0;
+
+                Console.SetWindowSize(80, 25);
+                Console.SetBufferSize(80, 25);
+                Console.OutputEncoding = System.Text.Encoding.UTF8;
+
+                Walls walls = new Walls(80, 25);
+                walls.Draw();
+
+                Point p = new Point(4, 5, Sy);
+                Snake snake = new Snake(p, 4, Directions.RIGHT);
+                snake.Draw();
+
+                FoodCreator foodCreator = new FoodCreator(80, 25, "@");
+                Point food = foodCreator.CreateFood(snake.GetPoints(), walls.GetPoints());
+                food.Draw();
+
+                bool isGameOver = false;
+
+                while (!isGameOver) 
                 {
-                    break;
-                }
-                if (snake.Eat(food))
-                {
-                    food = foodCreator.CreateFood();
-                    food.Draw();
-                }
-                else
-                {
-                    snake.Move();
+                    if (walls.IsHit(snake) || snake.IsHitTail())
+                    {
+                        isGameOver = true;
+                        continue;
+                    }
+
+                    bool hitExtraWall = false;
+                    foreach (var wall in extraWalls)
+                    {
+                        if (wall.IsHit(snake))
+                        {
+                            hitExtraWall = true;
+                            break;
+                        }
+                    }
+                    if (hitExtraWall)
+                        break;
+
+
+
+                    if (snake.Eat(food))
+                    {
+                        score++;
+                        if (score % 3 == 0)
+                        {
+                            // wall!
+                            Random rnd = new Random();
+                            int x = rnd.Next(2, 74); // map 
+                            int y = rnd.Next(2, 23); // map
+
+                            HorizontalLine newWall = new HorizontalLine(x, x + 4, y, "#");
+                            extraWalls.Add(newWall);
+                            newWall.Draw();
+                        }
+
+                        do
+                        {
+                            food = foodCreator.CreateFood(snake.GetPoints(), walls.GetPoints());
+                        } while (snake.IsHit(food) || walls.GetPoints().Any(p => p.IsHit(food)));
+
+                        food.Draw();
+                    }
+                    else
+                    {
+                        snake.Move();
+                    }
+
+                    Console.SetCursorPosition(0, 0);
+                    Console.Write($"Player: {Name} | Score: {score}     ");
+
+                    Thread.Sleep(Sp);
+
+                    if (Console.KeyAvailable)
+                    {
+                        ConsoleKeyInfo key = Console.ReadKey(true);
+                        snake.HandleKey(key.Key, DM); //DRUNK MODE OR NOT!
+
+                    }
                 }
 
-                Thread.Sleep(300);
+                Console.Clear();
+                Console.SetCursorPosition(30, 10);
+                Console.WriteLine("DEAD. Your score: " + score);
 
-                if (Console.KeyAvailable)
+                string path = "scores.txt";
+                //Console.WriteLine( Path.GetFullPath(path));////////////
+
+                using (StreamWriter writer = new StreamWriter(path, true))
                 {
-                    ConsoleKeyInfo key = Console.ReadKey();
-                    snake.HandleKey(key.Key);
+                    writer.WriteLine(Name + " - " + score);
                 }
+
+                Console.WriteLine("\n                          Press any key");
+                Console.ReadKey();
+                Console.Clear();
             }
+        }
 
-
-            }
 
     }
-
 }

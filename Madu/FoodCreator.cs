@@ -20,11 +20,19 @@ namespace Madu
             this.mapHeight = mapHeight;
             this.sym = sym;
         }
-        public Point CreateFood()
+        public Point CreateFood(List<Point> snakePoints, List<Point> wallPoints)
         {
-            int x = random.Next(2, mapWidth - 2);
-            int y = random.Next(2, mapHeight - 2);
-            return new Point(x, y, sym);
+            Point p;
+            do
+            {
+                int x = random.Next(2, mapWidth - 2);
+                int y = random.Next(2, mapHeight - 2);
+                p = new Point(x, y, sym);
+            }
+            while (snakePoints.Any(sp => sp.IsHit(p)) || wallPoints.Any(wp => wp.IsHit(p)));
+
+            return p;
         }
+
     }
 }

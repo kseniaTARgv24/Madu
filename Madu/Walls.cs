@@ -42,5 +42,16 @@ namespace Madu
                 wall.Draw();
             }
         }
+
+        public List<Point> GetPoints()
+        {
+            List<Point> allPoints = new List<Point>();
+            foreach (var wall in walllist)
+            {
+                allPoints.AddRange(wall.plist);
+            }
+            return allPoints;
+        }
+
     }
 }

@@ -51,6 +51,17 @@ namespace Madu
                 return false;
         }
 
+        public bool IsHit(Point p)
+        {
+            foreach (var part in plist)
+            {
+                if (part.IsHit(p))
+                    return true;
+            }
+            return false;
+        }
+
+
         public Point GetNextPoint()
         {
             Point head = plist.Last();
@@ -59,17 +70,32 @@ namespace Madu
             return nextPoint;
         }
 
-        public void HandleKey (ConsoleKey key)
+        public void HandleKey(ConsoleKey key, bool drunk)
         {
-            if (key == ConsoleKey.LeftArrow)
-                direction = Directions.LEFT;
-            else if (key == ConsoleKey.RightArrow)
-                direction = Directions.RIGHT;
-            else if (key == ConsoleKey.DownArrow)
-                direction = Directions.DOWN;
-            else if (key == ConsoleKey.UpArrow)
-                direction = Directions.UP;
+            if (drunk)
+            {
+                if (key == ConsoleKey.LeftArrow)
+                    direction = Directions.RIGHT;
+                else if (key == ConsoleKey.RightArrow)
+                    direction = Directions.LEFT;
+                else if (key == ConsoleKey.UpArrow)
+                    direction = Directions.DOWN;
+                else if (key == ConsoleKey.DownArrow)
+                    direction = Directions.UP;
+            }
+            else
+            {
+                if (key == ConsoleKey.LeftArrow)
+                    direction = Directions.LEFT;
+                else if (key == ConsoleKey.RightArrow)
+                    direction = Directions.RIGHT;
+                else if (key == ConsoleKey.UpArrow)
+                    direction = Directions.UP;
+                else if (key == ConsoleKey.DownArrow)
+                    direction = Directions.DOWN;
+            }
         }
+
 
         public override void Draw()
         {
@@ -88,5 +114,11 @@ namespace Madu
             }
             return false;
         }
+
+        public List<Point> GetPoints()
+        {
+            return plist;
+        }
+
     }
 }

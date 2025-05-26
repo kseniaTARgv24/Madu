@@ -8,7 +8,7 @@ namespace Madu
 {
     class Figure
     {
-        protected List<Point> plist;
+         public List<Point> plist;
 
         public virtual void Draw()
         {
